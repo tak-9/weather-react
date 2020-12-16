@@ -51,6 +51,8 @@ function WeatherForecast() {
     /**
      * Get current weather from openweathermap.
      * @param city name to search 
+     * @param lat latitude
+     * @param lon longitude
      */
     const getCurrentWeather = (city, lat, lon) => {
         let url;
@@ -93,6 +95,8 @@ function WeatherForecast() {
     /**
      * Get five days of weather forecast from openweathermap.
      * @param city name to search 
+     * @param lat latitude
+     * @param lon longitude
      */
     const getFiveDaysForecast = (city, lat, lon) => {
         let url
@@ -147,18 +151,17 @@ function WeatherForecast() {
 
     /**
      * Called when search button is clicked.
-     * @param {*} city 
      */
-    const searchButtonHandler = (city) => {
-        city = city.trim();
+    const searchButtonHandler = () => {
+        let city = cityName.trim();
         setErrorMessage('');        
         getFiveDaysForecast(city);
         getCurrentWeather(city);
     } 
 
-    const handleKeyPress = (e, city) => {
+    const handleKeyPress = (e) => {
         if (e.key === "Enter") {
-            searchButtonHandler(city);
+            searchButtonHandler(cityName);
         }
     }
 
@@ -170,11 +173,11 @@ function WeatherForecast() {
                 <input 
                     placeholder="Enter city name..."
                     onChange={e=>setCityName(e.target.value)}
-                    onKeyPress={e => handleKeyPress(e, e.target.value)}
+                    onKeyPress={e => handleKeyPress(e)}
                     value={cityName}
                 />
 
-                <button onClick={(e)=>searchButtonHandler(cityName)}>
+                <button onClick={searchButtonHandler}>
                     Search
                 </button>
                 <p/>
@@ -210,11 +213,9 @@ function WeatherForecast() {
 
                     { fiveDaysForecast ? 
                         <>
-                            <WeatherCard weatherData={fiveDaysForecast[0]} />
-                            <WeatherCard weatherData={fiveDaysForecast[1]} />
-                            <WeatherCard weatherData={fiveDaysForecast[2]} />
-                            <WeatherCard weatherData={fiveDaysForecast[3]} />
-                            <WeatherCard weatherData={fiveDaysForecast[4]} />
+                            { fiveDaysForecast.map((item, index) => {
+                                return <WeatherCard key={index} weatherData={item} />
+                            })}
                         </>
                         :
                         ''

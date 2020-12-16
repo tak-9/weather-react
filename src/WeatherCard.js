@@ -19,18 +19,20 @@ function WeatherCard({weatherData}) {
     }
 
     return (
-        <div 
-            className="card"
-            onMouseEnter={(e)=>{mouseEnter()}}
-            onMouseLeave={(e)=>{mouseLeave()}}
-        >
+        <div className="card"
+             onMouseEnter={mouseEnter}
+             onMouseLeave={mouseLeave}>
+            
             <h2 className="day">{weatherData.dayOfWeek}</h2>
             <small>{dateStr}</small><br/>
+
+            {/* Add mergin if weather is displayed. */}
             { weather !== '' ? 
             <div className="mtop">{weather}</div>
             :
             ''            
             }
+            
             <img src={weatherData.iconURL} alt={weather} />
             <h1 className="temp"> {weatherData.ctemp}°C</h1>
             {city}
