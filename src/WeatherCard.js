@@ -6,6 +6,14 @@ function WeatherCard({weatherData}) {
     const [weather, setWeather] = useState('');
     const [city, setCity] = useState('');
 
+    /**
+     * Animation on mouseEnter, mouseLeave might be an issue in terms of accessiblity. 
+     * https://www.wuhcag.com/on-focus/
+     * 
+     * However, I have implemented animation according to requirement "weather-widget.md" and wireframe.
+     * "A delightful use of animations is a plus." 
+     */
+
     const mouseEnter = () =>{
         setDateStr(weatherData.dateTime);
         setWeather(weatherData.weatherDescription);
